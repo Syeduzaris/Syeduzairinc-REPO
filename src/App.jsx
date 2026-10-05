@@ -16,8 +16,8 @@ const art = {
 }
 
 const stats = [
-  ['2018', 'Founded'],
-  ['20+', 'Projects shipped'],
+  ['2025', 'Founded'],
+  ['200+', 'Projects shipped'],
   ['16', 'Team members'],
   ['5+', 'Industries served'],
 ]
@@ -270,9 +270,9 @@ function ProjectVisual({ project }) {
 
 function Home() {
   const projects = [
-    { title: 'Motion Simulation', type: 'Art direction · CGI', image: art.chrome, video: './web_promo.mp4', className: 'wide' },
-    { title: '3D Modeling', type: 'Motion · Simulation', image: art.experiment1 },
-    { title: 'Product renders', type: 'Product · 3D', image: art.experiment2 },
+    { title: 'Motion Simulation', type: '', image: art.chrome, video: './web_promo.mp4', className: 'wide' },
+    { title: '3D Modeling', type: '', image: art.experiment1 },
+    { title: 'Product renders', type: '', image: art.experiment2 },
   ]
   return (
     <main>
@@ -293,7 +293,7 @@ function Home() {
           <div className="orbit">SU</div>
         </motion.div>
       </section>
-      <ClientStrip />
+      {/* <ClientStrip /> */}
       <Partner />
 
       <section className="section intro">
@@ -327,8 +327,8 @@ function Home() {
 function About() {
   const team = [
     ['Syed Uzair', 'Founder · Creative Director', art.orange],
-    ['Areeba Khan', 'Lead Animator', art.fluid],
-    ['Hamza Ali', 'Technical Artist', art.glass],
+    ['Shadab', 'Lead Animator', art.fluid],
+    ['Anshara', 'Technical Artist', art.glass],
     ['Teknotize', 'Development · Cloud', art.form],
   ]
   return (
