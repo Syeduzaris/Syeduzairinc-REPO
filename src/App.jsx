@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { BrowserRouter, Link, NavLink, Route, Routes, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion'
 import { ChevronDown, Menu, MoveRight, X } from 'lucide-react'
+import { sendContactEmail } from './sendContactEmail'
 
 const art = {
   chrome: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=1800&q=88',
@@ -367,7 +368,15 @@ function About() {
 
 function Contact() {
   const [sent, setSent] = useState(false)
-  const submit = (e) => { e.preventDefault(); setSent(true) }
+  const submit = async (e) => {
+    e.preventDefault()
+    try {
+      await sendContactEmail(e.currentTarget)
+      setSent(true)
+    } catch {
+      alert('Unable to send your message. Please try again.')
+    }
+  }
   return (
     <main>
       <section className="contact-hero">
@@ -383,10 +392,10 @@ function Contact() {
         </Reveal>
         <Reveal className="form-wrap" delay={.1}>
           {!sent ? <form onSubmit={submit}>
-            <div className="field-row"><label>First name<input required placeholder="Your first name" /></label><label>Last name<input required placeholder="Your last name" /></label></div>
-            <label>Business name <em>Optional</em><input placeholder="Company or studio" /></label>
-            <div className="field-row"><label>Country<select required defaultValue=""><option value="" disabled>Select country</option><option>Pakistan</option><option>United States</option><option>United Kingdom</option><option>United Arab Emirates</option><option>Other</option></select></label><label>Email address<input required type="email" placeholder="you@company.com" /></label></div>
-            <label>Tell us about your project<textarea required rows="6" placeholder="What are you hoping to create?" /></label>
+            <div className="field-row"><label>First name<input name="first_name" required placeholder="Your first name" /></label><label>Last name<input name="last_name" required placeholder="Your last name" /></label></div>
+            <label>Business name <em>Optional</em><input name="business_name" placeholder="Company or studio" /></label>
+            <div className="field-row"><label>Country<select name="country" required defaultValue=""><option value="" disabled>Select country</option><option>Pakistan</option><option>United States</option><option>United Kingdom</option><option>United Arab Emirates</option><option>Other</option></select></label><label>Email address<input name="email" required type="email" placeholder="you@company.com" /></label></div>
+            <label>Tell us about your project<textarea name="message" required rows="6" placeholder="What are you hoping to create?" /></label>
             <button className="submit" type="submit">Send your message <MoveRight /></button>
           </form> :
             <motion.div className="success" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}><span>✓</span><h2>Message received.</h2><p>Thanks for reaching out. We will get back to you shortly.</p><button onClick={() => setSent(false)}>Send another message</button></motion.div>}
